@@ -19,6 +19,6 @@ export default initAuth0({
     scope: process.env.NEXT_PUBLIC_AUTH0_SCOPE,
   },
   session: {
-    absoluteDuration: process.env.SESSION_COOKIE_LIFETIME,
+    absoluteDuration: Number(process.env.SESSION_COOKIE_LIFETIME),
   },
 });
