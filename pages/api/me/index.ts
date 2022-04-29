@@ -4,7 +4,7 @@ import auth0 from "../../../lib/auth0";
 export default async function me(req: NextApiRequest, res: NextApiResponse) {
   try {
     await auth0.handleProfile(req, res);
-  } catch (error) {
+  } catch (error: any) {
     console.error(error);
 
     if (!error) return;

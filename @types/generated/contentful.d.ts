@@ -65,6 +65,12 @@ export interface IProductFields {
 
   /** type */
   type?: Entry<{ [fieldId: string]: unknown }> | undefined;
+
+  /** Description */
+  description?: string | undefined;
+
+  /** isNew */
+  isNew?: boolean | undefined;
 }
 
 export interface IProduct extends Entry<IProductFields> {

@@ -1,25 +1,30 @@
 import { AppProps } from "next/app";
-import { ThemeProvider } from "@material-ui/core/styles";
-import CssBaseline from "@material-ui/core/CssBaseline";
+import { Box, ChakraProvider, Grid, GridItem } from "@chakra-ui/react";
 
 import "../styles.css";
-import { useEffect } from "react";
-import theme from "../lib/theme";
+import Footer from "../components/Footer";
+import Header from "../components/Header";
+import Cart from "../components/Cart";
 
 function MyApp({ Component, pageProps }: AppProps) {
-  useEffect(() => {
-    // Remove the server-side injected CSS.
-    const jssStyles = document.querySelector("#jss-server-side");
-    if (jssStyles) {
-      jssStyles.parentElement!.removeChild(jssStyles);
-    }
-  }, []);
-
   return (
-    <ThemeProvider theme={theme}>
-      <CssBaseline />
-      <Component {...pageProps} />
-    </ThemeProvider>
+    <Cart>
+      <ChakraProvider>
+        <Box w="100%">
+          <Grid templateRows="repeat(3, auto)" gap={4}>
+            <GridItem>
+              <Header />
+            </GridItem>
+            <GridItem>
+              <Component {...pageProps} />
+            </GridItem>
+            <GridItem>
+              <Footer />
+            </GridItem>
+          </Grid>
+        </Box>
+      </ChakraProvider>
+    </Cart>
   );
 }
 

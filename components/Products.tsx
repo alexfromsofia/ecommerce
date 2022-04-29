@@ -1,9 +1,9 @@
-import products from '../data/products'
-import { formatCurrencyString } from 'use-shopping-cart'
-import { useShoppingCart } from 'use-shopping-cart/react'
+import products from "../data/products";
+import { formatCurrencyString } from "use-shopping-cart";
+import { useShoppingCart } from "use-shopping-cart/react";
 
 const Products = () => {
-  const { addItem, removeItem } = useShoppingCart()
+  const { addItem, removeItem } = useShoppingCart();
 
   return (
     <section className="products">
@@ -20,8 +20,8 @@ const Products = () => {
           <button
             className="cart-style-background"
             onClick={() => {
-              console.log(product)
-              addItem(product)
+              console.log(product);
+              addItem(product);
             }}
           >
             Add to cart
@@ -35,7 +35,7 @@ const Products = () => {
         </div>
       ))}
     </section>
-  )
-}
+  );
+};
 
-export default Products
+export default Products;
