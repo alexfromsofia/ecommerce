@@ -27,82 +27,80 @@ export default function Product({
   const {
     file: { url },
   } = image![0].fields;
-  const { addItem, incrementItem } = useShoppingCart();
+  const { addItem } = useShoppingCart();
   const imageURL = buildURL(url);
   return (
-    <Flex w="full" alignItems="center" justifyContent="center">
-      <Box
-        bg={useColorModeValue("white", "gray.800")}
-        maxW="sm"
-        borderWidth="1px"
-        rounded="lg"
-        shadow="lg"
-        position="relative"
-      >
-        {isNew && (
-          <Badge
-            rounded="full"
-            px="2"
-            fontSize="0.8em"
-            colorScheme="red"
-            position="absolute"
-            top={2}
-            right={2}
+    <Box
+      bg={useColorModeValue("white", "gray.800")}
+      borderWidth="1px"
+      rounded="lg"
+      shadow="lg"
+      position="relative"
+      h="100%"
+    >
+      {isNew && (
+        <Badge
+          rounded="full"
+          px="2"
+          fontSize="0.8em"
+          colorScheme="red"
+          position="absolute"
+          top={2}
+          right={2}
+        >
+          New
+        </Badge>
+      )}
+      <Flex mt={6} justifyContent="center" alignContent="center">
+        <Image src={imageURL} width={120} height={120} />
+      </Flex>
+      <Box p="6">
+        <Divider mb="2" />
+        <Text>{description}</Text>
+        <Flex mt="1" justifyContent="space-between" alignContent="center">
+          <Box
+            fontSize="2xl"
+            fontWeight="semibold"
+            as="h4"
+            lineHeight="tight"
+            isTruncated
           >
-            New
-          </Badge>
-        )}
-        <Flex mt={6} justifyContent="center" alignContent="center">
-          <Image src={imageURL} width={140} height={140} />
+            {name}
+          </Box>
         </Flex>
-        <Box p="6">
-          <Divider mb="2" />
-          <Text>{description}</Text>
-          <Flex mt="1" justifyContent="space-between" alignContent="center">
-            <Box
-              fontSize="2xl"
-              fontWeight="semibold"
-              as="h4"
-              lineHeight="tight"
-              isTruncated
-            >
-              {name}
-            </Box>
-          </Flex>
 
-          <Flex justifyContent="space-between" alignContent="center">
-            <Box fontSize="2xl" color={useColorModeValue("gray.800", "white")}>
-              <Box as="span" color={"gray.600"} fontSize="lg">
-                Лв.
-              </Box>
-              {price!.toFixed(2)}
+        <Flex justifyContent="space-between" alignContent="center" mt="auto">
+          <Box fontSize="2xl" color={useColorModeValue("gray.800", "white")}>
+            <Box as="span" color={"gray.600"} fontSize="lg">
+              Лв.
             </Box>
-            <Tooltip
-              label="Add to cart"
-              bg="white"
-              placement={"top"}
-              color={"gray.800"}
-              fontSize={"1.2em"}
+            {price!.toFixed(2)}
+          </Box>
+          <Tooltip
+            label="Add to cart"
+            bg="white"
+            placement={"top"}
+            color={"gray.800"}
+            fontSize={"1.2em"}
+          >
+            <chakra.a
+              href={"#"}
+              display={"flex"}
+              onClick={() =>
+                addItem({
+                  id,
+                  price: Number(price),
+                  currency: "USD",
+                  name: name!,
+                  image: imageURL,
+                })
+              }
             >
-              <chakra.a
-                href={"#"}
-                display={"flex"}
-                onClick={() =>
-                  addItem({
-                    id,
-                    price: Number(price),
-                    currency: "bgn",
-                    name: name!,
-                    image: imageURL,
-                  })
-                }
-              >
-                <Icon as={FiShoppingCart} h={7} w={7} alignSelf={"center"} />
-              </chakra.a>
-            </Tooltip>
-          </Flex>
-        </Box>
+              <Icon as={FiShoppingCart} h={7} w={7} alignSelf={"center"} />
+            </chakra.a>
+          </Tooltip>
+        </Flex>
       </Box>
-    </Flex>
+    </Box>
   );
 }

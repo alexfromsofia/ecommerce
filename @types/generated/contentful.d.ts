@@ -71,6 +71,9 @@ export interface IProductFields {
 
   /** isNew */
   isNew?: boolean | undefined;
+
+  /** price_data */
+  price_data?: Record<string, any> | undefined;
 }
 
 export interface IProduct extends Entry<IProductFields> {
