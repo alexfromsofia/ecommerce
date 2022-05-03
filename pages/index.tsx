@@ -3,6 +3,7 @@ import { EntryCollection } from "contentful";
 import { NextPage } from "next";
 
 import { IProduct, IProductFields } from "../@types/generated/contentful";
+import Hero from "../components/Hero";
 
 import Product from "../components/Product";
 import contentful from "../lib/contentful";
@@ -20,6 +21,7 @@ export async function getStaticProps() {
 const IndexPage: NextPage<EntryCollection<IProduct>> = ({ items }) => {
   return (
     <Container maxW="container.xl">
+      <Hero />
       <SimpleGrid minChildWidth="300px" spacing="40px">
         {items.map(({ fields, sys: { id } }) => {
           return (
