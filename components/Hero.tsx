@@ -10,6 +10,7 @@ import {
   useColorModeValue,
   createIcon,
 } from "@chakra-ui/react";
+import Link from "next/link";
 
 export default function Hero() {
   return (
@@ -51,17 +52,19 @@ export default function Hero() {
             alignSelf={"center"}
             position={"relative"}
           >
-            <Button
-              colorScheme={"green"}
-              bg={"green.400"}
-              rounded={"full"}
-              px={6}
-              _hover={{
-                bg: "green.500",
-              }}
-            >
-              See our products
-            </Button>
+            <Link href="/products">
+              <Button
+                colorScheme={"green"}
+                bg={"green.400"}
+                rounded={"full"}
+                px={6}
+                _hover={{
+                  bg: "green.500",
+                }}
+              >
+                See our products
+              </Button>
+            </Link>
             <Button variant={"link"} colorScheme={"blue"} size={"sm"}>
               Learn more
             </Button>

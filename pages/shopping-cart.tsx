@@ -2,10 +2,23 @@ import { NextPage } from "next";
 
 import { Button, Flex, Stack } from "@chakra-ui/react";
 import { useShoppingCart } from "use-shopping-cart/react";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { fetchPostJSON } from "../utils/api-helpers";
 import contentful from "../lib/contentful";
-import { IProduct } from "../@types/generated/contentful";
+import { IProduct, IProductFields } from "../@types/generated/contentful";
+import {
+  Table,
+  Thead,
+  Tbody,
+  Tfoot,
+  Tr,
+  Th,
+  Td,
+  TableCaption,
+  TableContainer,
+  Container,
+} from "@chakra-ui/react";
+import Image from "next/image";
 
 export async function getStaticProps() {
   const products = await contentful.getEntries<IProduct>({
@@ -23,8 +36,6 @@ const ShoppingCart: NextPage = () => {
   const [loading, setLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
 
-  console.log(formattedTotalPrice);
-  console.log(cartDetails);
   const handleCheckout: React.FormEventHandler<HTMLFormElement> = async (
     event
   ) => {
@@ -48,18 +59,53 @@ const ShoppingCart: NextPage = () => {
   };
 
   return (
-    <form onSubmit={handleCheckout}>
-      <Flex>
+    <Container maxW="6xl">
+      <TableContainer>
+        <Table variant="simple">
+          <Thead>
+            <Tr>
+              <Th>Name</Th>
+              <Th>Image</Th>
+              <Th>Price</Th>
+            </Tr>
+          </Thead>
+          <Tbody>
+            {Object.entries(cartDetails).map((item) => {
+              const id = item[0];
+              const { image, name, formattedPrice } =
+                item[1] as IProductFields & { formattedPrice: string };
+
+              return (
+                <Tr key={id}>
+                  <Td>{name}</Td>
+                  <Td>
+                    <Image src={`${image}`} width={60} height={60} />
+                  </Td>
+                  <Td isNumeric>{formattedPrice}</Td>
+                </Tr>
+              );
+            })}
+          </Tbody>
+          <Tfoot>
+            <Tr>
+              <Th></Th>
+              <Th></Th>
+              <Th textAlign="right">Total: {formattedTotalPrice}</Th>
+            </Tr>
+          </Tfoot>
+        </Table>
+      </TableContainer>
+      <form onSubmit={handleCheckout}>
         <Stack spacing={4} direction="row" align="center">
-          <Button type="submit" colorScheme="teal" size="lg">
-            Proceed to checkout
-          </Button>
           <Button onClick={clearCart} colorScheme="teal" size="lg">
             Clear Cart
           </Button>
+          <Button type="submit" colorScheme="teal" size="lg">
+            Proceed to checkout
+          </Button>
         </Stack>
-      </Flex>
-    </form>
+      </form>
+    </Container>
   );
 };
 

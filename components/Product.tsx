@@ -90,7 +90,7 @@ export default function Product({
                 addItem({
                   id,
                   price: Number(price),
-                  currency: "USD",
+                  currency: "BGN",
                   name: name!,
                   image: imageURL,
                 })

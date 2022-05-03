@@ -31,7 +31,6 @@ export default async function handler(
         id,
         ...fields,
       }));
-      console.log(inventory);
 
       // Validate the cart details that were sent from the client.
       const line_items = validateCartItems(inventory as any, req.body);
@@ -57,8 +56,6 @@ export default async function handler(
 
       res.status(200).json(checkoutSession);
     } catch (err) {
-      debugger;
-      console.log(err);
       const errorMessage =
         err instanceof Error ? err.message : "Internal server error";
       res.status(500).json({ statusCode: 500, message: errorMessage });
