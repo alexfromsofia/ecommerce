@@ -10,9 +10,10 @@ import {
   useColorModeValue,
   useDisclosure,
 } from "@chakra-ui/react";
-import { ReactNode } from "react";
+import { ReactNode, useContext } from "react";
 import { FiShoppingCart } from "react-icons/fi";
 import { useShoppingCart } from "use-shopping-cart/react";
+import { AppContext } from "../store/AppContext";
 
 const Links = [
   {
@@ -37,9 +38,16 @@ const NavLink = ({ children, href }: { children: ReactNode; href: string }) => (
 );
 
 export default function Header() {
+  const { state, setState } = useContext(AppContext);
   const { isOpen, onOpen, onClose } = useDisclosure();
   const { cartDetails } = useShoppingCart();
   const itemsCount = Object.keys(cartDetails).length;
+  const handleCartClick = () => {
+    setState((prevState) => ({
+      ...prevState,
+      checkoutDrawerOpen: !prevState.checkoutDrawerOpen,
+    }));
+  };
 
   return (
     <Box bg={useColorModeValue("gray.100", "gray.900")} px={4}>
@@ -68,11 +76,15 @@ export default function Header() {
               ))}
             </HStack>
           </HStack>
-          <Flex alignItems={"center"}>
-            <Link href="/shopping-cart" position="relative">
-              {itemsCount}
-              <Icon as={FiShoppingCart} h={7} w={7} alignSelf={"center"} />
-            </Link>
+          <Flex
+            onClick={handleCartClick}
+            alignItems={"center"}
+            position="relative"
+            cursor="pointer"
+            userSelect="none"
+          >
+            {itemsCount}
+            <Icon as={FiShoppingCart} h={7} w={7} alignSelf={"center"} />
           </Flex>
         </Flex>
 

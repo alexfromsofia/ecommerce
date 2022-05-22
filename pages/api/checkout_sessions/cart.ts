@@ -43,7 +43,7 @@ export default async function handler(
         payment_method_types: ["card"],
         billing_address_collection: "auto",
         shipping_address_collection: {
-          allowed_countries: ["US", "CA"],
+          allowed_countries: ["BG"],
         },
         line_items,
         success_url: `${req.headers.origin}/result?session_id={CHECKOUT_SESSION_ID}`,
